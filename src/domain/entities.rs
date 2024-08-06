@@ -1,3 +1,22 @@
+use std::cmp::PartialEq;
+
+pub struct Pokemon {
+    name: PokemonName,
+    pub number: PokemonNumber,
+    types: PokemonTypes,
+}
+
+impl Pokemon {
+    pub fn new(number: PokemonNumber, name: PokemonName, types: PokemonTypes) -> Self {
+        Self {
+            name,
+            number,
+            types,
+        }
+    }
+}
+
+#[derive(PartialEq, Clone)]
 pub struct PokemonNumber(u16);
 
 impl TryFrom<u16> for PokemonNumber {
@@ -33,7 +52,8 @@ impl TryFrom<String> for PokemonName {
 }
 
 enum PokemonType {
-    Eletric,
+    Electric,
+    Fire,
 }
 
 impl TryFrom<String> for PokemonType {
@@ -41,7 +61,8 @@ impl TryFrom<String> for PokemonType {
 
     fn try_from(t: String) -> Result<Self, Self::Error> {
         match t.as_str() {
-            "Electric" => Ok(Self::Eletric),
+            "Electric" => Ok(Self::Electric),
+            "Fire" => Ok(Self::Fire),
             _ => Err(()),
         }
     }
